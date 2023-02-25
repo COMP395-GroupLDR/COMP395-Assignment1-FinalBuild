@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/ATMScene.unity
+    guid: 5419be23c0a8f074597f75b394b209da
   m_configObjects: {}
