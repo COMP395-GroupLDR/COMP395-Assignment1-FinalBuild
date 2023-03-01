@@ -3,6 +3,7 @@
  *  Last Update:        February 25, 2023
  *  Description:        Generate, calculate, and record customer arrival
  *  Revision History:   February 25, 2023 (Yuk Yee Wong): Initial script.
+ *  Feb 28, 2023        Updated customer prefab to GameObject (from CharacterController)
  */
 
 using Meta.Numerics.Statistics.Distributions;
@@ -14,7 +15,7 @@ using UnityEngine.UI;
 public class ArrivalProcess : MonoBehaviour
 {
     [SerializeField] private float interArrivalTimeInMinutes = 5f;
-    [SerializeField] private CustomerController customerPrefab;
+    [SerializeField] private GameObject customerPrefab;
     [SerializeField] private Transform customerContainer;
     [SerializeField] private bool generateArrivals = true;
 
@@ -54,6 +55,7 @@ public class ArrivalProcess : MonoBehaviour
         {
             meanArrivalTimeLabel = meanArrivalTimeObj.GetComponent<Text>();
         }
+
     }
 
     public void StartArrival()
@@ -68,9 +70,9 @@ public class ArrivalProcess : MonoBehaviour
             float nextArrivalInterval = GetArrivalInterval();
             yield return new WaitForSeconds(nextArrivalInterval);
 
-            CustomerController customerGO = Instantiate(customerPrefab, spawnPointTransform.position,Quaternion.identity, customerContainer);
-            customerGO.name = $"Customer #{arrivalCount}";
-            customerGO.customerIndex = arrivalCount;
+            GameObject customerGO = Instantiate(customerPrefab, spawnPointTransform.position, Quaternion.identity, customerContainer);
+            customerGO.GetComponent<CustomerController>().name = $"Customer #{arrivalCount}";
+            customerGO.GetComponent<CustomerController>().customerIndex = arrivalCount;
 
             arrivalCount++;
             arrivalRecord.Add(nextArrivalInterval);
@@ -81,7 +83,6 @@ public class ArrivalProcess : MonoBehaviour
             {
                 arrivalCountLabel.text = arrivalCount.ToString();
             }
-
             if (meanArrivalTimeLabel != null) 
             {
                 meanArrivalTimeLabel.text = (sum / arrivalCount).ToString("0.00") + " sec";

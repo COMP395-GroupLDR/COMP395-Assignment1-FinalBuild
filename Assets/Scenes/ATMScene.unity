@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.177785, g: 0.2225878, b: 0.30474633, a: 1}
+  m_IndirectSpecularColor: {r: 0.17778504, g: 0.22258802, b: 0.3047469, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3689,7 +3689,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 971211123}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5, y: 0.2150059, z: 25}
+  m_LocalPosition: {x: -4.697, y: 0.2150059, z: 25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4350,6 +4350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distance: {x: -1, y: 0, z: 0}
+  service: {fileID: 1862806277}
 --- !u!1 &1184194855
 GameObject:
   m_ObjectHideFlags: 0
@@ -5742,7 +5743,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: -4.999977, y: 0}
+  m_AnchoredPosition: {x: -4.9999695, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1463368113
@@ -6406,6 +6407,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1747687299}
+  - component: {fileID: 1747687300}
+  - component: {fileID: 1747687301}
   m_Layer: 0
   m_Name: CustomerDespawnPoint
   m_TagString: CustomerDespawnPoint
@@ -6428,6 +6431,31 @@ Transform:
   m_Father: {fileID: 385440433}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1747687300
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1747687298}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.5051041, y: 1.4597003, z: 1.4175243}
+  m_Center: {x: 0.25255203, y: 0.71022964, z: 0.003455162}
+--- !u!114 &1747687301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1747687298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a39b89d9138ed254d904386bd45a7a7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1796839812
 GameObject:
   m_ObjectHideFlags: 0
@@ -6570,6 +6598,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1862806276}
   - component: {fileID: 1862806277}
+  - component: {fileID: 1862806278}
   m_Layer: 0
   m_Name: ServiceProcess
   m_TagString: Untagged
@@ -6585,7 +6614,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1862806275}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -4.98, y: 0, z: 25.17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6605,6 +6634,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MeanServiceTimeInMinutes: 0.3
+  isBusy: 1
+--- !u!65 &1862806278
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1862806275}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.62090206, y: 2.9465618, z: 1.5077362}
+  m_Center: {x: 0.9425545, y: 1.6904175, z: -0.09588432}
 --- !u!1001 &1867016926
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7270,7 +7313,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1988553670}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.29}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7598,8 +7641,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03b240cd299160949854f1690e81d645, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interArrivalTimeInMinutes: 0.5
-  customerPrefab: {fileID: 2586942340015159031, guid: 3384e9bf21281e9429cae3b67550d9b9, type: 3}
+  interArrivalTimeInMinutes: 0.1
+  customerPrefab: {fileID: 2586942340015159029, guid: 3384e9bf21281e9429cae3b67550d9b9, type: 3}
   customerContainer: {fileID: 249287069}
   generateArrivals: 1
   meanArrivalTimeLabel: {fileID: 0}

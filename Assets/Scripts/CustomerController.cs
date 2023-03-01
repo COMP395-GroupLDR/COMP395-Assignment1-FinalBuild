@@ -3,6 +3,7 @@
  *  Last Update:        February 25, 2023
  *  Description:        Customer controller that uses nav mesh agent to move around and updates FSM state
  *  Revision History:   February 25, 2023 (Yuk Yee Wong): Initial script.
+ *  February 28, 2023   Updated Enum values and added WalkToService, DoService, DoExit behaviours (Han)
  */
 
 using UnityEngine;
@@ -16,9 +17,9 @@ public class CustomerController : MonoBehaviour
         None,
         Arrived,
         Queuing,
-        ReadyToBeServed,
+        WalkingToService,
         Servicing,
-        Serviced,
+        Exit,
     }
 
     [HideInInspector] public int customerIndex;
@@ -127,14 +128,14 @@ public class CustomerController : MonoBehaviour
             case CustomerState.Queuing:
                 DoQueuing();
                 break;
-            case CustomerState.ReadyToBeServed:
-                DoReadyToBeServed();
+            case CustomerState.WalkingToService:
+                DoWalkToService();
                 break;
             case CustomerState.Servicing:
                 DoServicing();
                 break;
-            case CustomerState.Serviced:
-                DoServiced();
+            case CustomerState.Exit:
+                DoExit();
                 break;
             default:
                 Debug.LogWarning($"{customerState} behaviour is not defined, please update ChangeCustomerState");
@@ -157,7 +158,7 @@ public class CustomerController : MonoBehaviour
         Walk();
     }
 
-    private void DoReadyToBeServed()
+    private void DoWalkToService()
     {
         targetDestination = servicePoint; // for debug
         agent.SetDestination(targetDestination);
@@ -168,13 +169,16 @@ public class CustomerController : MonoBehaviour
     {
         targetDestination = servicePoint; // for debug
         agent.SetDestination(targetDestination);
+        
         Service();
     }
 
-    private void DoServiced()
+    private void DoExit()
     {
         targetDestination = despawnPoint; // for debug
         agent.SetDestination(targetDestination);
         Walk();
     }
+
+
 }
