@@ -168,8 +168,7 @@ public class CustomerController : MonoBehaviour
     private void DoServicing()
     {
         targetDestination = servicePoint; // for debug
-        agent.SetDestination(targetDestination);
-        
+        agent.SetDestination(targetDestination);        
         Service();
     }
 
@@ -180,5 +179,11 @@ public class CustomerController : MonoBehaviour
         Walk();
     }
 
+    public void MoveForward(Vector3 offset)
+    {
+        targetDestination = targetDestination - offset; // for debug
+        agent.SetDestination(targetDestination);
+        Walk();
+    }
 
 }

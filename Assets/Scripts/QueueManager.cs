@@ -44,6 +44,10 @@ public class QueueManager : MonoBehaviour
             CustomerController customer = queue.Dequeue();
             customer.ChangeCustomerState(CustomerController.CustomerState.WalkingToService);
             service.setBusy();
+
+            foreach (CustomerController controller in queue) {
+                controller.MoveForward(distance);
+            }
         }
     }
 
