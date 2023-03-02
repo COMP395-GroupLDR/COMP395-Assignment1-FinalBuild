@@ -12,6 +12,8 @@ TagManager:
   - QueueManager
   - ArrivalCountLabel
   - MeanArrivalTimeLabel
+  - ServiceCountLabel
+  - MeanServiceTimeLabel
   layers:
   - Default
   - TransparentFX
