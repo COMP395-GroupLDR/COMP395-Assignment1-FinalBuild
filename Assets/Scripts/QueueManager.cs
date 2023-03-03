@@ -1,13 +1,15 @@
 /*  Filename:           QueueManager.cs
  *  Author:             Yuk Yee Wong (301234795)
- *  Last Update:        February 25, 2023
+ *  Last Update:        March 3, 2023
  *  Description:        Manage the queue and position
  *  Revision History:   February 25, 2023 (Yuk Yee Wong): Initial script.
- *  Feb 28, 2023        Added CheckList behaviour to dequeue list for service (Han)
+ *                      February 28, 2023 (Han Bi): Added CheckList behaviour to dequeue list for service
+ *                      March 3 (Yuk Yee Wong): Move calculation of arrival time to Utiltiies
  */
 
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class QueueManager : MonoBehaviour
 {
@@ -18,11 +20,19 @@ public class QueueManager : MonoBehaviour
     public Queue<CustomerController> queue = new Queue<CustomerController>();
 
     private Vector3 headOfQueuePoint;
+    private Text queuingCountLabel;
+
     // Start is called before the first frame update
     void Start()
     {
         headOfQueuePoint = GameObject.FindGameObjectWithTag("HeadOfQueuePoint").transform.position;
-        
+
+        // Find queuing count label in current scene
+        GameObject queuingCountObj = GameObject.FindGameObjectWithTag("QueuingCountLabel");
+        if (queuingCountObj != null)
+        {
+            queuingCountLabel = queuingCountObj.GetComponent<Text>();
+        }
     }
 
     // Update is called once per frame
@@ -35,6 +45,7 @@ public class QueueManager : MonoBehaviour
     {
         queuePosition = headOfQueuePoint + distance * queue.Count;
         queue.Enqueue(controller);
+        UpdateQueuingCountLabel();
     }
 
     private void CheckList()
@@ -42,6 +53,8 @@ public class QueueManager : MonoBehaviour
         if(service.IsBusy() == false && queue.Count > 0)
         {
             CustomerController customer = queue.Dequeue();
+            UpdateQueuingCountLabel();
+
             customer.ChangeCustomerState(CustomerController.CustomerState.WalkingToService);
             service.setBusy();
 
@@ -51,6 +64,12 @@ public class QueueManager : MonoBehaviour
         }
     }
 
-
+    private void UpdateQueuingCountLabel()
+    {
+        if (queuingCountLabel != null)
+        {
+            queuingCountLabel.text = queue.Count.ToString();
+        }
+    }
     
 }

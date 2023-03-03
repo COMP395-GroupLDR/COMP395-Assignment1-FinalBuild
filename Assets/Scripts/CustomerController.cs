@@ -1,9 +1,10 @@
 /*  Filename:           CustomerController.cs
  *  Author:             Yuk Yee Wong (301234795)
- *  Last Update:        February 25, 2023
+ *  Last Update:        March 3, 2023
  *  Description:        Customer controller that uses nav mesh agent to move around and updates FSM state
  *  Revision History:   February 25, 2023 (Yuk Yee Wong): Initial script.
- *  February 28, 2023   Updated Enum values and added WalkToService, DoService, DoExit behaviours (Han)
+ *                      February 28, 2023 (Han Bi): Updated Enum values and added WalkToService, DoService, DoExit behaviours
+ *                      March 3, 2023 (Yuk Yee Wong): Move calculation of arrival time to Utiltiies
  */
 
 using UnityEngine;
@@ -23,6 +24,9 @@ public class CustomerController : MonoBehaviour
     }
 
     [HideInInspector] public int customerIndex;
+    [SerializeField] private GameObject arrivedIcon;
+    [SerializeField] private GameObject servicingIcon;
+    [SerializeField] private GameObject servicedIcon;
 
     private float walkSpeed = 1.7f;
     private int idleArmsAnim = 5;
@@ -63,10 +67,17 @@ public class CustomerController : MonoBehaviour
         humanModule.RandomAppearance();
         
         agent.speed = walkSpeed;
-
+        
         ChangeCustomerState(CustomerState.Arrived);
 
         inited = true;
+    }
+
+    private void UpdateStatusIcon()
+    {
+        arrivedIcon.SetActive(customerState == CustomerState.Arrived || customerState == CustomerState.Queuing || customerState == CustomerState.WalkingToService);
+        servicingIcon.SetActive(customerState == CustomerState.Servicing);
+        servicedIcon.SetActive(customerState == CustomerState.Exit);
     }
 
     void FixedUpdate()
@@ -116,6 +127,7 @@ public class CustomerController : MonoBehaviour
     {
         customerState = state;
         FSMCustomer();
+        UpdateStatusIcon();
     }
 
     private void FSMCustomer()
@@ -145,7 +157,6 @@ public class CustomerController : MonoBehaviour
 
     private void DoArrived()
     {
-        Debug.Log($"Customer #{customerIndex} arrived at {Time.timeAsDouble.ToString("0.00")}s");
         ChangeCustomerState(CustomerState.Queuing);
     }
 
