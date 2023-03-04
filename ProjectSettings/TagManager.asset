@@ -21,6 +21,7 @@ TagManager:
   - ObservedMeanService
   - ArrivalDistributionLabel
   - ServiceDistributionLabel
+  - Snow
   layers:
   - Default
   - TransparentFX
