@@ -7,6 +7,7 @@
  *                      March 3, 2023 (Yuk Yee Wong): Move calculation of arrival time to Utiltiies
  */
 
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -35,6 +36,7 @@ public class CustomerController : MonoBehaviour
     private int walkLegsAnim = 1;
     private int serviceArmsAnim = 5;
     private int serviceLegsAnim = 22;
+    private float queuetime = 0f;
 
     // Auto loaded at start
     // internal
@@ -71,6 +73,14 @@ public class CustomerController : MonoBehaviour
         ChangeCustomerState(CustomerState.Arrived);
 
         inited = true;
+    }
+
+    private void Update()
+    {
+        if (customerState == CustomerState.Queuing)
+        {
+            queuetime += Time.deltaTime;
+        }
     }
 
     private void UpdateStatusIcon()
@@ -185,6 +195,8 @@ public class CustomerController : MonoBehaviour
 
     private void DoExit()
     {
+        Debug.Log(queuetime);
+        queueManager.AverageQueueTime(queuetime);
         targetDestination = despawnPoint; // for debug
         agent.SetDestination(targetDestination);
         Walk();
@@ -196,5 +208,4 @@ public class CustomerController : MonoBehaviour
         agent.SetDestination(targetDestination);
         Walk();
     }
-
 }

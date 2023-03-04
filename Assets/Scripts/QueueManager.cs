@@ -7,6 +7,7 @@
  *                      March 3 (Yuk Yee Wong): Move calculation of arrival time to Utiltiies
  */
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,12 +16,13 @@ public class QueueManager : MonoBehaviour
 {
     [SerializeField] private Vector3 distance = new Vector3(-1f, 0f, 0f);
     [SerializeField] private ServiceProcess service;
-
-  
+    [SerializeField] private Text meanQueueTime;
     public Queue<CustomerController> queue = new Queue<CustomerController>();
-
+    
     private Vector3 headOfQueuePoint;
     private Text queuingCountLabel;
+    private float totalQueueTime = 0f;
+    public float queueCount = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -41,10 +43,19 @@ public class QueueManager : MonoBehaviour
         CheckList();
     }
 
+    public void AverageQueueTime(float queuetime)
+    {
+        totalQueueTime += queuetime;
+        double minutes = Math.Ceiling(Math.Ceiling(totalQueueTime/queueCount) / 60);
+        double seconds = Math.Ceiling(Math.Ceiling(totalQueueTime/queueCount) % 60);
+        meanQueueTime.text = minutes.ToString("00") + ":" + seconds.ToString("00");
+    }
+
     public void Push(CustomerController controller, out Vector3 queuePosition)
     {
         queuePosition = headOfQueuePoint + distance * queue.Count;
         queue.Enqueue(controller);
+        queueCount += 1;
         UpdateQueuingCountLabel();
     }
 
