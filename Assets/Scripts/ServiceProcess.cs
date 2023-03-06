@@ -42,6 +42,7 @@ public class ServiceProcess : MonoBehaviour
         GameObject meanServiceTimeObj = GameObject.FindGameObjectWithTag("MeanServiceTimeLabel");
         if (meanServiceTimeObj != null)
         {
+            
             meanServiceTimeLabel = meanServiceTimeObj.GetComponent<Text>();
         }
 
